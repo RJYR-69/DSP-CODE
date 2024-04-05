@@ -1,0 +1,40 @@
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Step 1: Read the Image
+image = cv2.imread('path/to/your/image.jpg')
+
+# Step 2: Convert to Grayscale (Optional)
+gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+# Step 3: Histogram Equalization
+equalized_image = cv2.equalizeHist(gray_image)
+
+# Step 4: Adaptive Histogram Equalization (Optional)
+clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
+clahe_image = clahe.apply(gray_image)
+
+# Step 5: Display the Results
+plt.figure(figsize=(10, 5))
+
+plt.subplot(1, 3, 1)
+plt.imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+plt.title('Original Image')
+plt.axis('off')
+
+plt.subplot(1, 3, 2)
+plt.imshow(equalized_image, cmap='gray')
+plt.title('Histogram Equalized')
+plt.axis('off')
+
+plt.subplot(1, 3, 3)
+plt.imshow(clahe_image, cmap='gray')
+plt.title('CLAHE Applied')
+plt.axis('off')
+
+plt.show()
+
+# Step 6: Save or Export Results (Optional)
+cv2.imwrite('path/to/save/equalized_image.jpg', equalized_image)
+cv2.imwrite('path/to/save/clahe_image.jpg', clahe_image)
